@@ -1,0 +1,63 @@
+MCP Primitives:
+1) Tools - Actions which AI asks the server to perform.
+2) Resources - Structure Data sources that the AI can read.
+3) Prompts - Predifined prompt templates or instructions that the server offers to help shape the AI's behaviour.
+
+The Prompts Primitives
+
+Below is the use case of mcp where we have to raise an issue on github using client
+and also Below is an example on how we create a prompt on server and when llm uses it it gives us correct output:
+
+{
+    "name": "issue_report_prompt",
+    "description": "Write clear, detailed GitHub issues",
+    "messages": [
+        {
+        "role": "system",
+        "content": "Always include: Title, Steps to Reproduce, Expected, Actual, Environment"
+        }
+    ]
+}
+
+below is the output how it will generate the output in systematic order.
+
+"
+    Title: Bug Login Button Not Working
+    
+    **Steps to Reproduce:**
+    1. Open the login page
+    2. Enter valid credentials
+    3. Click the Login button
+    
+    **Expected Behavior:**
+    User should be logged in and redirected to dashboard.
+    
+    **Actual Behavior:**
+    Nothing happens when clicking the Login button.
+    
+    **Environment:**
+    Chrome 121, macOS 14.2
+"
+
+
+---------------------- Primitives - Standard Operations ----------------------------
+Tools:
+    1) tools/list -> Client asks the server: "What tools do you provide?" -> It will goto the server and fetch all the tools and functionalities in list format.
+    for example:
+        I have github mcp server and in that server there is function for creating issue, push the code, to commit the code, read the number of repositories.
+
+    2) tools/call -> Client tells the server: "Please run this tool with these arguments." -> here we can the specific functionality which we want to call or invoke using it.
+    for example:- 
+        If i want to create a new issue on github i will just call create issue function 
+
+Resourses:
+    1) resources/list -> Client asks: "What resourses are available?" -> It will tell how many static documents present in the server which we can later fetch.
+
+    2) resources/read -> Client says: "Give me the content of this resources?" -> With the help of this we can read a particular document.
+
+    3) resources/subscribe /unsubscribe -> Client subscribes or unsubscribes from the updates. -> If there are changes in document then server will tell us and on unsubscribe changes will not be shown to user.
+
+Prompts:
+    1) prompts/list -> Client asks "What prompt templates do you provide?" -> Its is use is also same it shows list of all functions.
+
+    2) prompts/get -> Client fetches a specific prompt template.

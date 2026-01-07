@@ -1,0 +1,5 @@
+What is Context?
+    Context is everything an AI can "see" when it generates a response.
+    More formally, Context refers to the information(conversation history, external docs, etc) that the LLM uses to generate a response.
+    For e.g, while chatting with chatGpt, the past messages forms the context.
+

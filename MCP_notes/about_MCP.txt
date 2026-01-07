@@ -1,0 +1,10 @@
+Benefits of MCP:
+1) Decoupling - each client handlings its own end-to-end communication with its own server. so if suppose there are two server first one is github and linkedin suppose if github shuts down but still the linkedin server will be running fine
+
+2) Safety - As each client handles its own end-to-end communication with its own server. secure don't get compromised.
+
+3) Parallelism - As each Client has its own MCP server connected getting data from multiple client simultaneously becomes easier.
+
+4) Scalability - we can have one host and can connect it to multiple different servers. how many servers that many client we have to add.
+
+
