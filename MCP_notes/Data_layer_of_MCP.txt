@@ -1,0 +1,30 @@
+Data Layer:
+    The data layer is the language and grammar of the MCP ecosystem that everyone agrees upon the communicate.
+    In MCP, JSON RPC 2.0 serves as the foundation of the data layer.
+    JSON RPC gives us the rules to write the language of MCP.
+
+
+JSON RPC 2.0:
+    JSON-RPC stands for Javascript object notation - Remote Procedure Call. 
+    JSON-RPC combines the concept of Remote Procedure Calls with the simplicity of json, allowing developers to structure RPC requests and responses in a standardized JSON format.
+    A Remote Procedure Call(RPC) allows a program to execute a function on another computer as if it were local, hiding  the details of network communication and data transfer. This abstraction makes it easier to build distributed applications.
+    for example:-
+        suppose there are two system and in another system all the functions and dependencies are stored and we have to access those functions and dependencies in the first system there comes RPC to solve it. 
+
+        another example:
+            Instead of writing add(2,3) locally, you send a request to the server saying "please run add with parameters 2 and 3."
+
+Why JSON-RPC for Data Layer?
+    1) Its Light-weight
+    2) Supports bi-directional communication
+    3) It is transport-agnostic
+
+Batching using JSON-RPC:
+    Using this we can send multiple requests to the server at a time. 
+    for example:-
+        If i have to different task i can run both the task simultaneously saving time, etc
+
+
+Notification (fire-and-forget):
+    Here we can send notifications like client can send notification to server and server can send notification to client. for every request there has to be a response but incase of notifications client generated a notification to the server. server has no responsibility of returning a response. Notification is like fire and forget
+
