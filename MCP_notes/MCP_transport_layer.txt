@@ -1,0 +1,37 @@
+MCP Transport Layer:
+    The Transport Layer is the mechanism that moves JSON-RPC messages between the client and server.
+    The choice of tranport depends on the type of server.
+
+    In MCP there are 2 types of servers:
+        1) Remote servers :- A remote server is a program running on another computer(somewhere else on the network or internet) that you connect to over a network. remote servers using http + sse combination.
+        2) Local servers :- A local server is a program running on your own computer.
+
+
+    Local Server - STDIO(Standard Input/Output):
+        STDIO refers to the built-in streams every program has.
+        STDIN (input the program reads)
+        STDOUT (output the program writes)
+
+        In MCP, these streams are used as transport layer between the client and server.
+
+        This works in three steps:-
+            1) The host launches the server as a subprocess on the same machine. then the parent child connection has been established between host and the server which means host has the control of servers standard input/output.
+
+            2) Using the above point the client(host) writes JSON-RPC messages into the server's STDIN.
+
+            3) The server reads those messages, processes them, and writes back responses to it's STDOUT.
+
+    Benefits of STDIO transport:
+        1) Fast - data is passed directly between processes.
+        2) secure - no open network port that could be attacked; communication is only local.
+        3) simple - every language/runtime supports reading/ writing from STDIN/STDOUT. No extra libraries required.  
+
+    Remote Servers HTTP + SSE:
+        1) Using HTTP allows the host to reach servers running anywhere.
+        2) Host sends JSON-RPC requests using POST requests with a JSON payload.
+        3) The transport supports standard HTTP auth methods (like API keys).
+
+        SSE:
+            1) SSE stands for Server Sent Events, and its on extension of http.
+            2) Using SSE the server sends multiple messages to client over a single open connection.
+            3) Instead of sending one large JSON blob, the server can stream chunks of data as they are ready.

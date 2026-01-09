@@ -17,7 +17,10 @@ JSON RPC 2.0:
 Why JSON-RPC for Data Layer?
     1) Its Light-weight
     2) Supports bi-directional communication
-    3) It is transport-agnostic
+    3) It is transport-agnostic which means unlike in rest api it uses http for handling request and response JSON-RPC is fexible it can work with http, stdio, websockets, we can also write a custom transport and it can support it also
+    4) Supports Batching
+    5) Supports Notification
+    
 
 Batching using JSON-RPC:
     Using this we can send multiple requests to the server at a time. 
