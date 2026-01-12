@@ -1,0 +1,31 @@
+Ways of Connections in MCP:
+    1) Local Server
+    2) Remote Server
+
+Types of Connections in MCP:
+    1) Using Config.json
+    2) Using Connectors
+
+
+What are Connectors?
+    A Connector is a built-in features that links claude to MCP servers automatically, without the need of manual setup or configuration.
+
+    Most Claude Desktop users are non-technical and end-users who just want claude to "talk" to their apps(Notion, Google Drive, Github, Slack, etc.).
+
+    They don't want to run servers, edit JSON, or worry about transport.
+
+    The Connector system wraps an MCP server behind the scenes and handles authentication via OAuth(sign-in with google, Github, etc.)
+
+    This keeps things easy, safe and consistent.
+
+
+Why not use Connectors always?
+    Connectors are curated and managed
+        *) Connectors are officially built, hosted and maintained by anthropic.
+        *) They came with OAuth login flows, managed security, rate-limits, and guaranteed stability.
+        *) If every MCP server were required to be a Connector, it would mean anthropic has to review, host, and secure every possible server -> which does'nt scale.
+
+
+    MCP is an Open standard
+        *) MCP is designed so anyone can write a server.
+        *) Forcing everything through Connectors would close the ecosystem and make you dependant on Anthropic to approve or publish servers.

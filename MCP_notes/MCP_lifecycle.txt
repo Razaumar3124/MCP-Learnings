@@ -1,0 +1,106 @@
+What is MCP lifecycle?
+    The MCP Life Cycle describes the complete sequence of steps that govern how a host(client) and a server establish, use, and end a connection during a session.
+
+There are 3 stages in MCP lifecycle:-
+    1) Initialization:- 
+        The Initialization phase must be the first interaction between client and server.
+        Establish protocol version compatibility.
+        Establish and negotiate capabilities.
+
+    Importand rules:-
+        1) The client should not send requests other than pings before the server has responded to the initialize request.
+        2) The server should not send requests other than pings and logging before receiving the initialized notification.
+
+    Version Negotiation:-
+        when the host(client) sends protocolVersion if it supports it then the connection will be established otherwise it will get disconnected.
+
+    Capability Negotiation:-
+        client and server capabilities established which protocol features will be available during the session. client gives access to root which is to give access to the root directory
+
+    My understanings:-
+    In the start it will establish a connection with the server known as session. 
+    for example:-
+        You have opened claude desktop in your system now host(client) will establish a connection with the server and in our case server is Github and this is also called a session.
+
+    2) Operation:- 
+    During the operation phase, the client and server exchange messages according to the negotiated capabilities.
+    Respect the negotiated protocol version.
+    Only use capabilities that were successfully negotiated.
+    
+    My understanings:-
+    Here we will perform some operation on the server buy asking some questions.
+    for example:-
+        you will ask a query to claude what it will do is check for tool if it has github tool then it will make use of it.
+
+    3) Shut Down:- 
+        1) One side (typically the client) initiate shutdown.
+        2) No special JSON-RPC shutdown message is defined.
+        3) Transport layer is responsible for signaling termination.
+
+        Shutdown in STDIO(local server):-
+            *) CLient-initiated shutdown (should):
+                1) Close input stream to the child process(forever)
+                2) Wait for server to exit.
+                3) Send SIGTERM(signal terminate) if server does not exit in time.
+                4) Send SIGKILL(signal kill) if still unresponsive.
+
+            *) Server-initiated shutdown (may):
+                1) Close output stream to the client.
+                2) Exit process
+
+        Shutdown in HTTP(remote server):
+            *) Client-initiated shutdown (common case):
+                1) The client(host) closes the HTTP connections it opened to the server.
+
+            *) Server-initiated shutdown (possible):
+                1) The server may close the connection from its side.
+                2) The Client must be prepared to detect a dropped connection and handle it (e.g, reconnect if appropriate)
+    
+    My understandings:-
+    Here we end our continuous connection from the server which is the ongoing session we close that.
+    for example:-
+        Here when we close Claude desktop from the system the connection or session between host(client) and server is close.
+
+
+    Pings:- 
+        Ping is a lightwieght request/response method defined in MCP.
+        Purpose:- to check whether the other side (Host or server) is still alive and the connection is responsive
+        When to use:- 
+            1) Usefull for checking if the other side is up before full initialize.
+            2) If there's no activity for a while, a client may send periodic pings. Prevents the connection from being dropped silently by the OS, proxies, or firewalls.
+
+    
+    Error-Handling:- 
+        1) Error handling in MCP is how the host(client) and server signal that something went wrong with a request.
+        2) MCP inherits JSON-RPC's standard error object format.
+        3) Causes of error:
+            i) Unsupported or mismatched protocol version.
+            ii) Calling a method for a capability that wasn't negotiated.
+            iii) Invalid argument to a tool.
+            iv) Internal server failure while processing a request.
+            v) Timeout exceeded -> client cancels request.
+            vi) Malformed JSON-RPC messages.
+
+
+    Timeout:-
+        Timeout is about esuring requests don't hang forever
+    
+        Purpose:-
+            1) Protects against unresponsive or overloaded server.
+            2) Ensures resources(memory, CPU) aren't held indefinitely.
+            3) Gives the user feedback instead of waiting forever.
+
+        How Timeout works:-
+            1) SDKs let client sets a per-request timeout (e.g, 30 secs)
+            2) If the deadline passes with no result -> client triggers a timeout.
+            3) Client then sends a cancellation notification to tell the server to stop.
+            4) The server must stop processing that request and not return a result.
+
+        My understandings:-
+            Client(host) send a request to the server and server is taking more time to execute at that time you can define a threshold or a timeout
+
+
+    Progess Notifications:- 
+        Purpose:- Let the client know a long-running request is still making progress.
+        Client includes a progressToken in the request's metadata(_meta -> key).
+        Server can then send notification/progress updates while working. 
