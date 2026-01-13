@@ -1,0 +1,51 @@
+Birth of MCP(2023-2024)
+    1) Anthropic introduced Model context protocol(MCP).
+        -> Structured communication between LLMs and external tools/data
+    2) Early needs:
+        -> Build MCP servers(tools/resources/prompts)
+        -> Build MCP clients(apps consuming those servers)
+    3) Official Python SDK(mcp) released:
+        -> mcp.server -> build servers
+        -> mcp.client -> build clients
+        -> mcp.cli -> CLI for debugging/testing
+    4) This becomes the reference implementation.
+
+
+Developer Friction and FastMCP 1.x (2024)
+    1) Problem:- Raw SDK = verbose and boilerplate heavy.
+        -> Manual list_tools, call_tool, list_prompts, etc.
+        -> Explicit schema definitions required.
+    2) Solution:- FastMCP helper inside SDK (mcp.server.fastmcp)
+    3) Decorator-driven, type-hint aware:
+        from mcp.server.fastmcp import FastMCP
+        mcp = FastMCP("Demo")
+
+        @mcp.tool()
+        def add(a: int, b: int) -> int:
+            return a + b
+    4) Popular for teaching and Prototyping
+
+
+FastMCP Breaks Out of MCP and becomes a seperate entity(2025)
+    1) FastMCP adoption grows rapidly.
+    2) SDK maintainers goal:
+        -> Keep SDK minimal & Spec-focused
+        -> Let FastMCP evolve faster(Qol APIs, transports, integrations).
+    3) FastMCP 2.x released as standalone package:
+        pip install fastmcp
+        from fastmcp import FastMCP
+        fastmcp version
+    4) Highly compatible with 1.x, but may diverge over time
+
+
+Where Things Stand(Late 2025)
+    1) MCP SDK(mcp)
+        -> Official, spec-compliant, stable
+        -> install: pip install mcp[cli]
+    2) MCP CLI(mcp ...)
+        -> Ships with SDK
+        -> Inspect, debug, test servers.
+    3) FastMCP 2.x(fastmcp)
+        -> Standalone, community-driven, fast-evolving.
+        -> Ideal for students, educators, rapid prototypes.
+        -> Not official reference, but more ergonomic.

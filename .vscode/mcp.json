@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"my-mcp-server-0b2c602d": {
+			"url": "http://127.0.0.1:5001/mcp",
+			"type": "http"
+		},
+		"expense-tracker-server": {
+			"url": "http://127.0.0.1:5000/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
